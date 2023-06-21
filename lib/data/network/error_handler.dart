@@ -129,3 +129,8 @@ class ResponseMessage {
   static const String cacheError = "Cache error, try again later";
   static const String noInternetConnection = "Please check your internet connection";
 }
+
+class ApiInternalStatus {
+  static const int success = 0;
+  static const int failure = 1;
+}
