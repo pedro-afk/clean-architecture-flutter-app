@@ -1,4 +1,4 @@
-# complete_advanced_flutter
+## Clean Architecture App
 
 A new Flutter project.
 
