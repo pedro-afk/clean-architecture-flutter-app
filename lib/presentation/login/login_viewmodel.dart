@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
+import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
   final _usernameStreamController = StreamController<String>.broadcast();
   final _passwordStreamController = StreamController<String>.broadcast();
+
+  var loginObject = LoginObject("", "");
 
   @override
   void dispose() {
