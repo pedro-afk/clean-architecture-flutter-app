@@ -67,6 +67,11 @@ ThemeData getApplicationTheme() {
       labelMedium: getRegularStyle(color: ColorManager.grey1),
       bodyLarge: getRegularStyle(color: ColorManager.grey1),
     ),
+    // text selection theme
+    textSelectionTheme: TextSelectionThemeData(
+      cursorColor: ColorManager.grey,
+      selectionHandleColor: ColorManager.primary,
+    ),
     // input decoration theme (text form field)
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.all(AppPadding.p8),
@@ -102,7 +107,7 @@ ThemeData getApplicationTheme() {
       ),
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.primary,
+          color: ColorManager.error,
           width: AppSize.s1_5,
         ),
         borderRadius: BorderRadius.circular(AppSize.s8),

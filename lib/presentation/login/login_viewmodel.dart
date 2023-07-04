@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
@@ -10,7 +9,6 @@ class LoginViewModel extends BaseViewModel
   final _usernameStreamController = StreamController<String>.broadcast();
   final _passwordStreamController = StreamController<String>.broadcast();
   final _isAllInputsValidStreamController = StreamController<void>.broadcast();
-
 
   var loginObject = LoginObject("", "");
 
@@ -36,7 +34,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Future<void> login() async {
-    (await _loginUseCase!.execute(
+  /*  (await _loginUseCase!.execute(
       LoginUseCaseInput(loginObject.username, loginObject.password),
     )).fold((failure) => {
       // left -> failure
@@ -44,22 +42,23 @@ class LoginViewModel extends BaseViewModel
     }, (data) => {
       // right -> success
       log(data.customer?.name ?? "")
-    });
+    });*/
   }
 
   @override
   Stream<bool> get outputIsPasswordValid =>
-      _passwordStreamController.stream.map(_validate);
+      _passwordStreamController.stream.map(_isValidPassword);
 
   @override
   Stream<bool> get outputIsUsernameValid =>
-      _usernameStreamController.stream.map(_validate);
+      _usernameStreamController.stream.map(_isValidUsername);
 
   @override
   void setPassword(String password) {
     inputPassword.add(password);
     loginObject = loginObject.copyWith(password: password);
     // data class operation same as kotlin
+    _resetInputIsAllInput();
   }
 
   @override
@@ -67,21 +66,30 @@ class LoginViewModel extends BaseViewModel
     inputUsername.add(username);
     loginObject = loginObject.copyWith(username: username);
     // data class operation same as kotlin
+    _resetInputIsAllInput();
   }
 
   @override
   Sink get inputIsAllInputValid => _isAllInputsValidStreamController.sink;
 
   @override
-  Stream<bool> get outputIsAllInputsValid => _isAllInputsValidStreamController.
-    stream.map((_) => _isAllInputsValid());
-  
-  bool _validate(String value) {
-    return value.isNotEmpty;
+  Stream<bool> get outputIsAllInputsValid =>
+      _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
+
+  bool _isValidPassword(String password) {
+    return password.isNotEmpty;
+  }
+
+  bool _isValidUsername(String username) {
+    return username.isNotEmpty;
   }
 
   bool _isAllInputsValid() {
-    return true;
+    return _isValidPassword(loginObject.password) && _isValidUsername(loginObject.username);
+  }
+
+  void _resetInputIsAllInput() {
+    inputIsAllInputValid.add(null);
   }
 }
 
