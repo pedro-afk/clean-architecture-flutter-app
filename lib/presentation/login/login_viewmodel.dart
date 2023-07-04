@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
@@ -12,7 +13,7 @@ class LoginViewModel extends BaseViewModel
 
   var loginObject = LoginObject("", "");
 
-  final LoginUseCase? _loginUseCase; // todo remove ?
+  final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);
 
@@ -34,7 +35,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Future<void> login() async {
-  /*  (await _loginUseCase!.execute(
+    (await _loginUseCase!.execute(
       LoginUseCaseInput(loginObject.username, loginObject.password),
     )).fold((failure) => {
       // left -> failure
@@ -42,7 +43,7 @@ class LoginViewModel extends BaseViewModel
     }, (data) => {
       // right -> success
       log(data.customer?.name ?? "")
-    });*/
+    });
   }
 
   @override

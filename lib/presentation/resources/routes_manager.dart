@@ -1,3 +1,4 @@
+import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/presentation/forgot_password/forgot_password.dart';
 import 'package:complete_advanced_flutter/presentation/login/login.dart';
 import 'package:complete_advanced_flutter/presentation/main/main_view.dart';
@@ -27,6 +28,7 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingView());
       case Routes.loginRoute:
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => const LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterView());
