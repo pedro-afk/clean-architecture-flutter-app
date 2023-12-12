@@ -8,14 +8,17 @@ ThemeData getApplicationTheme() {
   return ThemeData(
     useMaterial3: true,
     // main colors of the app
-    primaryColor: ColorManager.primary,
     primaryColorLight: ColorManager.primaryOpacity70,
     primaryColorDark: ColorManager.darkPrimary,
     // ripple color
     splashColor: ColorManager.primaryOpacity70,
     // will be used in case of disabled button for example
     disabledColor: ColorManager.grey1,
-    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorManager.grey),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: ColorManager.primary,
+      primary: ColorManager.primary,
+    ),
+    // ColorScheme.fromSwatch().copyWith(secondary: ColorManager.grey),
     // card view theme
     cardTheme: CardTheme(
       color: ColorManager.white,
