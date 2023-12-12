@@ -7,44 +7,47 @@ import 'package:complete_advanced_flutter/data/repository/repository_impl.dart';
 import 'package:complete_advanced_flutter/domain/repository/repository.dart';
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/login/login_viewmodel.dart';
+import 'package:complete_advanced_flutter/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final getIt = GetIt.instance;
+final instance = GetIt.instance;
 
 Future<void> initAppModule() async {
   final sharedPrefs = await SharedPreferences.getInstance();
 
   // shared preferences
-  getIt.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
+  instance.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
   // app prefs
-  getIt.registerLazySingleton<AppPreferences>(() => AppPreferences(getIt()));
+  instance.registerLazySingleton<AppPreferences>(() => AppPreferences(instance()));
 
   // network info
-  getIt.registerLazySingleton<NetworkInfoImpl>(
+  instance.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(InternetConnectionChecker()));
 
   // dio factory
-  getIt.registerLazySingleton<DioFactory>(() => DioFactory(getIt()));
+  instance.registerLazySingleton<DioFactory>(() => DioFactory(instance()));
 
   // app service client
-  final dio = await getIt<DioFactory>().getDio();
-  getIt.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
+  final dio = await instance<DioFactory>().getDio();
+  instance.registerLazySingleton<AppServiceClient>(() => AppServiceClient(dio));
 
   // remote data source
-  getIt.registerLazySingleton<RemoteDataSourceImplementer>(
-      () => RemoteDataSourceImplementer(getIt()));
+  instance.registerLazySingleton<RemoteDataSource>(
+      () => RemoteDataSourceImplementer(instance()));
 
   // repository
-  getIt.registerLazySingleton<Repository>(
-      () => RepositoryImpl(getIt(), getIt()));
+  instance.registerLazySingleton<Repository>(
+      () => RepositoryImpl(instance(), instance()));
+
+  instance.registerSingleton(OnBoardingViewModel());
 }
 
 void initLoginModule() {
   if (!GetIt.I.isRegistered<LoginUseCase>()) {
-    getIt.registerFactory<LoginUseCase>(() => LoginUseCase(getIt()));
-    getIt.registerFactory<LoginViewModel>(() => LoginViewModel(getIt()));
+    instance.registerFactory<LoginUseCase>(() => LoginUseCase(instance()));
+    instance.registerFactory<LoginViewModel>(() => LoginViewModel(instance()));
   }
 }

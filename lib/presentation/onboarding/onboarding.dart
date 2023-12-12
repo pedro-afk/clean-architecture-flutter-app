@@ -1,3 +1,4 @@
+import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/domain/model/model.dart';
 import 'package:complete_advanced_flutter/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/assets_manager.dart';
@@ -17,10 +18,10 @@ class OnBoardingView extends StatefulWidget {
 
 class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController(initialPage: 0);
-  OnBoardingViewModel viewmodel = OnBoardingViewModel();
+  final viewModel = instance<OnBoardingViewModel>();
 
   void _bind() {
-    viewmodel.start();
+    viewModel.start();
   }
 
   @override
@@ -31,14 +32,14 @@ class _OnBoardingViewState extends State<OnBoardingView> {
 
   @override
   void dispose() {
-    viewmodel.dispose();
+    viewModel.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SliderViewObject>(
-      stream: viewmodel.outputSliderViewObject,
+      stream: viewModel.outputSliderViewObject,
       builder: (context, snapshot) {
         if (snapshot.data == null) return Container();
 
@@ -56,7 +57,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           body: PageView.builder(
             controller: _pageController,
             itemCount: snapshot.data!.numOfSlides,
-            onPageChanged: (index) => viewmodel.onPageChanged(index),
+            onPageChanged: (index) => viewModel.onPageChanged(index),
             itemBuilder: (context, index) => OnBoardingPage(
               sliderObject: snapshot.data!.sliderObject,
             ),
@@ -96,7 +97,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               onTap: () => _pageController.animateToPage(
-                viewmodel.goPrevius(),
+                viewModel.goPrevius(),
                 duration: const Duration(milliseconds: DurationConstant.d300),
                 curve: Curves.bounceInOut,
               ),
@@ -122,7 +123,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
             padding: const EdgeInsets.all(AppPadding.p14),
             child: GestureDetector(
               onTap: () => _pageController.animateToPage(
-                viewmodel.goNext(),
+                viewModel.goNext(),
                 duration: const Duration(milliseconds: DurationConstant.d300),
                 curve: Curves.bounceInOut,
               ),

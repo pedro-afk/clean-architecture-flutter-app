@@ -17,19 +17,18 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewmodel = getIt<LoginViewModel>();
-
+  final _viewModel = instance<LoginViewModel>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   void _bind() {
-    _viewmodel.start();
+    _viewModel.start();
     _usernameController
-        .addListener(() => _viewmodel.setUsername(_usernameController.text));
+        .addListener(() => _viewModel.setUsername(_usernameController.text));
     _passwordController
-        .addListener(() => _viewmodel.setPassword(_passwordController.text));
+        .addListener(() => _viewModel.setPassword(_passwordController.text));
   }
 
   @override
@@ -40,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void dispose() {
-    _viewmodel.dispose();
+    _viewModel.dispose();
     super.dispose();
   }
 
@@ -62,7 +61,7 @@ class _LoginViewState extends State<LoginView> {
                 Image.asset(ImageAssets.splashLogo),
                 const SizedBox(height: AppSize.s28),
                 StreamBuilder<bool>(
-                  stream: _viewmodel.outputIsUsernameValid,
+                  stream: _viewModel.outputIsUsernameValid,
                   builder: (context, snapshot) => CustomTextFormField(
                     controller: _usernameController,
                     keyboardType: TextInputType.emailAddress,
@@ -75,7 +74,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: AppSize.s28),
                 StreamBuilder<bool>(
-                  stream: _viewmodel.outputIsPasswordValid,
+                  stream: _viewModel.outputIsPasswordValid,
                   builder: (context, snapshot) => CustomTextFormField(
                     controller: _passwordController,
                     keyboardType: TextInputType.visiblePassword,
@@ -89,13 +88,13 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 const SizedBox(height: AppSize.s28),
                 StreamBuilder<bool>(
-                  stream: _viewmodel.outputIsAllInputsValid,
+                  stream: _viewModel.outputIsAllInputsValid,
                   builder: (context, snapshot) => SizedBox(
                     width: double.infinity,
                     height: AppSize.s40,
                     child: ElevatedButton(
                       onPressed: (snapshot.data ?? false)
-                          ? () => _viewmodel.login()
+                          ? () => _viewModel.login()
                           : null,
                       child: Text(
                         AppStrings.login,

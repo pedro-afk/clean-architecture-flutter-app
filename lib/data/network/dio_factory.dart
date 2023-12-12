@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:complete_advanced_flutter/app/app_prefs.dart';
 import 'package:complete_advanced_flutter/app/constant.dart';
 import 'package:dio/dio.dart';
@@ -44,6 +46,18 @@ class DioFactory {
         ),
       );
     }
+
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onResponse: (response, handler) {
+          if (response.data is String) {
+            final convert = jsonDecode(response.data);
+            response.data = convert;
+            handler.next(response);
+          }
+        }
+      )
+    );
 
     return dio;
   }

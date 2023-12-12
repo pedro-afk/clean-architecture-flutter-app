@@ -35,7 +35,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Future<void> login() async {
-    (await _loginUseCase!.execute(
+    (await _loginUseCase.execute(
       LoginUseCaseInput(loginObject.username, loginObject.password),
     )).fold((failure) => {
       // left -> failure
