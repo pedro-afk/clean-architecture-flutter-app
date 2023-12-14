@@ -8,7 +8,6 @@ import 'package:dartz/dartz.dart';
 
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
   final Repository _repository;
-
   LoginUseCase(this._repository);
 
   @override

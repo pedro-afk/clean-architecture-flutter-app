@@ -36,3 +36,9 @@ extension AuthenticationResponseMapper on AuthenticationResponse? {
     );
   }
 }
+
+extension SupportForgotPasswordResponseMapper on SupportForgotPasswordResponse {
+  SupportForgotPassword toDomain() {
+    return SupportForgotPassword(support);
+  }
+}

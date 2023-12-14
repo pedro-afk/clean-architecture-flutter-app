@@ -15,10 +15,33 @@ class RepositoryImpl extends Repository {
   RepositoryImpl(this._remoteDataSource, this._networkInfo);
 
   @override
-  Future<Either<Failure, Authentication>> login(LoginRequest loginRequest) async {
+  Future<Either<Failure, Authentication>> login(
+      LoginRequest loginRequest) async {
     if (await _networkInfo.isConnected) {
       try {
         final response = await _remoteDataSource.login(loginRequest);
+        if (response.status == ApiInternalStatus.success) {
+          return Right(response.toDomain());
+        } else {
+          return Left(
+            Failure(response.status ?? ApiInternalStatus.failure,
+                response.message ?? ResponseMessage.unknown),
+          );
+        }
+      } catch (error) {
+        return Left(ErrorHandler.handler(error).failure);
+      }
+    } else {
+      return Left(DataSource.noInternetConnection.getFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, SupportForgotPassword>> forgotPassword(
+      ForgotPasswordRequest loginRequest) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final response = await _remoteDataSource.forgotPassword(loginRequest);
         if (response.status == ApiInternalStatus.success) {
           return Right(response.toDomain());
         } else {

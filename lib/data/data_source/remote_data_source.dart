@@ -4,6 +4,7 @@ import 'package:complete_advanced_flutter/data/responses/responses.dart';
 
 abstract class RemoteDataSource {
   Future<AuthenticationResponse> login(LoginRequest loginRequest);
+  Future<SupportForgotPasswordResponse> forgotPassword(ForgotPasswordRequest loginRequest);
 }
 
 class RemoteDataSourceImplementer implements RemoteDataSource {
@@ -19,5 +20,10 @@ class RemoteDataSourceImplementer implements RemoteDataSource {
       "12345", // loginRequest.imei,
       "XUXU", // loginRequest.deviceType,
     );
+  }
+
+  @override
+  Future<SupportForgotPasswordResponse> forgotPassword(ForgotPasswordRequest loginRequest) async {
+    return await _appServiceClient.forgotPassword(loginRequest.email);
   }
 }

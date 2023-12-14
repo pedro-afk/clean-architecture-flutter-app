@@ -12,10 +12,7 @@ class LoginViewModel extends BaseViewModel
   final _passwordStreamController = StreamController<String>.broadcast();
   final _isAllInputsValidStreamController = StreamController<void>.broadcast();
   final isUserLoggedInSuccessfullyStreamController = StreamController<bool>();
-
-
   var loginObject = LoginObject("", "");
-
   final LoginUseCase _loginUseCase;
 
   LoginViewModel(this._loginUseCase);

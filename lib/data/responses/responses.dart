@@ -48,3 +48,13 @@ class AuthenticationResponse extends BaseResponse {
   factory AuthenticationResponse.fromJson(Map<String, dynamic> json) => _$AuthenticationResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AuthenticationResponseToJson(this);
 }
+
+@JsonSerializable()
+class SupportForgotPasswordResponse extends BaseResponse {
+  @JsonKey(name: 'support')
+  String? support;
+
+  SupportForgotPasswordResponse(this.support);
+  factory SupportForgotPasswordResponse.fromJson(Map<String, dynamic> json) => _$SupportForgotPasswordResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$SupportForgotPasswordResponseToJson(this);
+}

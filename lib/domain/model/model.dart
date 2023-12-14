@@ -36,3 +36,8 @@ class DeviceInfo {
 
   DeviceInfo(this.name, this.identifier, this.version);
 }
+
+class SupportForgotPassword {
+  String? support;
+  SupportForgotPassword(this.support);
+}

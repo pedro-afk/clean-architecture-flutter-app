@@ -1,3 +1,4 @@
+import 'package:complete_advanced_flutter/app/app_prefs.dart';
 import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/domain/model/model.dart';
 import 'package:complete_advanced_flutter/presentation/onboarding/onboarding_viewmodel.dart';
@@ -18,9 +19,11 @@ class OnBoardingView extends StatefulWidget {
 
 class _OnBoardingViewState extends State<OnBoardingView> {
   final PageController _pageController = PageController(initialPage: 0);
+  final AppPreferences _appPreferences = instance<AppPreferences>();
   final viewModel = instance<OnBoardingViewModel>();
 
   void _bind() {
+    _appPreferences.setOnboardingScreenViewed();
     viewModel.start();
   }
 

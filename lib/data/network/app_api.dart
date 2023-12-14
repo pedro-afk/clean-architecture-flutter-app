@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:complete_advanced_flutter/app/constant.dart';
 import 'package:complete_advanced_flutter/data/responses/responses.dart';
 import 'package:dio/dio.dart';
@@ -17,5 +15,10 @@ abstract class AppServiceClient {
     @Field('password') String password,
     @Field('imei') String imei,
     @Field('deviceType') String deviceType,
+  );
+
+  @POST("/customers/forgotPassword")
+  Future<SupportForgotPasswordResponse> forgotPassword(
+    @Field('email') String email
   );
 }
