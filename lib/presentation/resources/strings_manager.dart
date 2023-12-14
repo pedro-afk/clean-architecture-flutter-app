@@ -14,6 +14,8 @@ class AppStrings {
   static const String onBoardingSubTitle4 =
       "Tut app is an awesome flutter application using clean architecture #4";
   static const String skip = "Skip";
+  static const String email = "E-mail";
+  static const String emailError = "E-mail is wrong";
   static const String username = "Username";
   static const String usernameError = "Username is wrong";
   static const String password = "Password";
@@ -24,4 +26,8 @@ class AppStrings {
   static const String loading = "Loading...";
   static const  String retryAgain = "Retry again";
   static const  String ok = "Ok";
+  static const  String resetPassword = "Reset password";
+  static const  String resendPassword = "Didn't receive an e-mail? Resend";
+
+  static const String goBack = "Go back";
 }

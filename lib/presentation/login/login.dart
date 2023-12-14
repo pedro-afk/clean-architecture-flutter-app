@@ -78,15 +78,12 @@ class _LoginViewState extends State<LoginView> {
   Widget _loginBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(
-          top: AppPadding.p100,
-          left: AppPadding.p28,
-          right: AppPadding.p28,
-        ),
+        padding: const EdgeInsets.all(AppPadding.p16),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
+              const SizedBox(height: AppSize.s28),
               Image.asset(ImageAssets.splashLogo),
               const SizedBox(height: AppSize.s28),
               StreamBuilder<bool>(

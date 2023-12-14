@@ -14,6 +14,12 @@ class ForgotPasswordViewModel extends BaseViewModel
   ForgotPasswordViewModel(this._forgotPasswordUseCase);
 
   @override
+  void dispose() {
+    _emailStreamController.close();
+    super.dispose();
+  }
+
+  @override
   void start() {
     inputState.add(ContentState());
   }
