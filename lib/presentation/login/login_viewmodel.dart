@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
+import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer.dart';
+import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -25,7 +27,9 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  void start() {}
+  void start() {
+    inputState.add(ContentState());
+  }
 
   @override
   Sink get inputPassword => _passwordStreamController.sink;
@@ -35,15 +39,22 @@ class LoginViewModel extends BaseViewModel
 
   @override
   Future<void> login() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.popupLoadingState));
     (await _loginUseCase.execute(
-      LoginUseCaseInput(loginObject.username, loginObject.password),
-    )).fold((failure) => {
-      // left -> failure
-      log(failure.message)
-    }, (data) => {
-      // right -> success
-      log(data.customer?.name ?? "")
-    });
+            LoginUseCaseInput(loginObject.username, loginObject.password)))
+        .fold(
+      (failure) => {
+        inputState.add(
+          ErrorState(StateRendererType.popupErrorState, failure.message),
+        ),
+        log(failure.message),
+      },
+      (data) => {
+        inputState.add(ContentState()),
+        log(data.customer?.name ?? ""),
+      },
+    );
   }
 
   @override
@@ -86,7 +97,8 @@ class LoginViewModel extends BaseViewModel
   }
 
   bool _isAllInputsValid() {
-    return _isValidPassword(loginObject.password) && _isValidUsername(loginObject.username);
+    return _isValidPassword(loginObject.password) &&
+        _isValidUsername(loginObject.username);
   }
 
   void _resetInputIsAllInput() {
@@ -104,7 +116,7 @@ abstract class LoginViewModelInputs {
   Sink get inputUsername;
 
   Sink get inputPassword;
-  
+
   Sink get inputIsAllInputValid;
 }
 
@@ -112,6 +124,6 @@ abstract class LoginViewModelOutputs {
   Stream<bool> get outputIsUsernameValid;
 
   Stream<bool> get outputIsPasswordValid;
-  
+
   Stream<bool> get outputIsAllInputsValid;
 }
