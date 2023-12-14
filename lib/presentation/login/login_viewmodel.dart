@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:complete_advanced_flutter/domain/usecase/login_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
@@ -12,6 +11,8 @@ class LoginViewModel extends BaseViewModel
   final _usernameStreamController = StreamController<String>.broadcast();
   final _passwordStreamController = StreamController<String>.broadcast();
   final _isAllInputsValidStreamController = StreamController<void>.broadcast();
+  final isUserLoggedInSuccessfullyStreamController = StreamController<bool>();
+
 
   var loginObject = LoginObject("", "");
 
@@ -24,6 +25,7 @@ class LoginViewModel extends BaseViewModel
     _usernameStreamController.close();
     _passwordStreamController.close();
     _isAllInputsValidStreamController.close();
+    isUserLoggedInSuccessfullyStreamController.close();
   }
 
   @override
@@ -44,15 +46,14 @@ class LoginViewModel extends BaseViewModel
     (await _loginUseCase.execute(
             LoginUseCaseInput(loginObject.username, loginObject.password)))
         .fold(
-      (failure) => {
+      (failure) {
         inputState.add(
           ErrorState(StateRendererType.popupErrorState, failure.message),
-        ),
-        log(failure.message),
+        );
       },
-      (data) => {
-        inputState.add(ContentState()),
-        log(data.customer?.name ?? ""),
+      (data) {
+        inputState.add(ContentState());
+        isUserLoggedInSuccessfullyStreamController.add(true);
       },
     );
   }

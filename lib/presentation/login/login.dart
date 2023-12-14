@@ -9,6 +9,7 @@ import 'package:complete_advanced_flutter/presentation/resources/styles_manager.
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -30,6 +31,12 @@ class _LoginViewState extends State<LoginView> {
         .addListener(() => _viewModel.setUsername(_usernameController.text));
     _passwordController
         .addListener(() => _viewModel.setPassword(_passwordController.text));
+    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
+        .listen((isSuccessLogin) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      });
+    });
   }
 
   @override
@@ -52,12 +59,13 @@ class _LoginViewState extends State<LoginView> {
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(
-            context,
-            _loginBody(),
-            () {
-              _viewModel.login();
-            },
-          ) ?? _loginBody();
+                context,
+                _loginBody(),
+                () {
+                  _viewModel.login();
+                },
+              ) ??
+              _loginBody();
         },
       ),
     );
@@ -85,9 +93,8 @@ class _LoginViewState extends State<LoginView> {
                   keyboardType: TextInputType.emailAddress,
                   hintText: AppStrings.username,
                   labelText: AppStrings.username,
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.usernameError,
+                  errorText:
+                      (snapshot.data ?? true) ? null : AppStrings.usernameError,
                 ),
               ),
               const SizedBox(height: AppSize.s28),
@@ -99,9 +106,8 @@ class _LoginViewState extends State<LoginView> {
                   obscureText: true,
                   hintText: AppStrings.password,
                   labelText: AppStrings.password,
-                  errorText: (snapshot.data ?? true)
-                      ? null
-                      : AppStrings.passwordError,
+                  errorText:
+                      (snapshot.data ?? true) ? null : AppStrings.passwordError,
                 ),
               ),
               const SizedBox(height: AppSize.s28),
@@ -134,8 +140,8 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pushNamed(
-                        context, Routes.registerRoute),
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Routes.registerRoute),
                     child: Text(
                       AppStrings.registerText,
                       style: Theme.of(context).textTheme.titleMedium,
