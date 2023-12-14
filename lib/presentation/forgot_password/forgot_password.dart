@@ -40,6 +40,10 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: ColorManager.transparent,
+        elevation: AppSize.s0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(AppPadding.p16),
         child: Column(
@@ -89,13 +93,6 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     ),
                   ),
                 ],
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                AppStrings.goBack,
-                style: getMediumStyle(color: ColorManager.white),
               ),
             ),
           ],
