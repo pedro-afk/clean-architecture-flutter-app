@@ -23,10 +23,14 @@ class AppStrings {
   static const String login = "Login";
   static const String forgetPassword = "Forget password?";
   static const String registerText = "Sign up";
+  static const String register = "Register";
+  static const String mobileNumber = "Mobile number";
+  static const String profilePicture = "Profile picture";
   static const String loading = "Loading...";
   static const String retryAgain = "Retry again";
   static const String ok = "Ok";
   static const String resetPassword = "Reset password";
   static const String resendPassword = "Didn't receive an e-mail? Resend";
   static const String goBack = "Go back";
+  static const String alreadyRegistered = "Already have an account?";
 }
