@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 enum StateRendererType {
   popupLoadingState,
   popupErrorState,
+  popupAlertState,
   fullscreenLoadingState,
   fullscreenErrorState,
   contentScreenState,
@@ -56,19 +57,24 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.fullscreenLoadingState:
         return const ItemsInColumn(
           children: [
-            CircularProgressIndicator(),
-            Message(message: AppStrings.loading),
+            Center(child: CircularProgressIndicator()),
+            Center(child: Message(message: AppStrings.loading)),
           ],
         );
       case StateRendererType.fullscreenErrorState:
         return ItemsInColumn(
           children: [
-            Message(message: message),
-            RetryButton(title: AppStrings.retryAgain, onRetry: onRetry)
+            Center(child: Message(message: message)),
+            Center(child: RetryButton(title: AppStrings.retryAgain, onRetry: onRetry))
           ],
         );
       case StateRendererType.emptyScreenState:
         return ItemsInColumn(children: [Message(message: message)]);
+      case StateRendererType.popupAlertState:
+        return CustomDialog(
+          content: Message(message: message),
+          actions: [RetryButton(title: AppStrings.ok, onRetry: onRetry)],
+        );
       default:
         return const SizedBox();
     }

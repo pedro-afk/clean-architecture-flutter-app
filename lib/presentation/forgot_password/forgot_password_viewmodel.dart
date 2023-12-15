@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/domain/usecase/forgot_password_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/base/base_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/common/freezed_data_classes.dart';
+import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
@@ -39,12 +41,14 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   Future<void> forgotPassword() async {
-    (await _forgotPasswordUseCase.execute(
-      ForgotPasswordUseCaseInput(forgotPasswordObject.email))
-    ).fold((failure) {
-      // TODO: add error state here
+    inputState.add(LoadingState(stateRendererType: StateRendererType.fullscreenLoadingState));
+    (await _forgotPasswordUseCase
+            .execute(ForgotPasswordUseCaseInput(forgotPasswordObject.email)))
+        .fold((failure) {
+      inputState.add(
+          ErrorState(StateRendererType.popupErrorState, failure.message));
     }, (data) {
-      // TODO: add success state here
+      inputState.add(AlertState(data.support ?? empty));
     });
   }
 

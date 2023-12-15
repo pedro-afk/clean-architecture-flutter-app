@@ -60,6 +60,18 @@ class EmptyState extends FlowState {
       StateRendererType.contentScreenState;
 }
 
+class AlertState extends FlowState {
+  String message;
+
+  AlertState(this.message);
+
+  @override
+  String getMessage() => message;
+
+  @override
+  StateRendererType getStateRendererType() => StateRendererType.popupAlertState;
+}
+
 extension FlowStateExtension on FlowState {
   Widget getScreenWidget(
     BuildContext context,
@@ -69,12 +81,7 @@ extension FlowStateExtension on FlowState {
     switch (runtimeType) {
       case LoadingState:
         if (getStateRendererType() == StateRendererType.popupLoadingState) {
-          showPopup(
-            context,
-            getStateRendererType(),
-            getMessage(),
-            retryAction
-          );
+          showPopup(context, getStateRendererType(), getMessage(), retryAction);
           return content;
         } else {
           return StateRenderer(
@@ -109,6 +116,16 @@ extension FlowStateExtension on FlowState {
           message: getMessage(),
           onRetry: retryAction,
         );
+      case AlertState:
+        if (getStateRendererType() == StateRendererType.popupAlertState) {
+          showPopup(
+            context,
+            getStateRendererType(),
+            getMessage(),
+            () => Navigator.pop(context),
+          );
+        }
+        return content;
       default:
         return content;
     }
