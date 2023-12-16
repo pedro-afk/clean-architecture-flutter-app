@@ -119,9 +119,9 @@ class _RegisterViewState extends State<RegisterView> {
                     initialSelection: "+55",
                     showOnlyCountryWhenClosed: true,
                     onInit: (countryCode) =>
-                        _viewModel.setCountryCode(countryCode?.code ?? empty),
+                        _viewModel.setCountryCode(countryCode?.dialCode ?? empty),
                     onChanged: (countryCode) =>
-                        _viewModel.setCountryCode(countryCode.code ?? empty),
+                        _viewModel.setCountryCode(countryCode.dialCode ?? empty),
                     hideMainText: true,
                   ),
                 ),

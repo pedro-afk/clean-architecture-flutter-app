@@ -118,6 +118,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void setEmail(String email) {
+    inputEmailStreamController.add(email);
     if (!_isValidEmail(email)) {
       registerObject = registerObject.copyWith(email: "");
     } else {
@@ -129,6 +130,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void setMobileNumber(String mobileNumber) {
+    inputMobileNumberStreamController.add(mobileNumber);
     if (!_isValidMobileNumber(mobileNumber)) {
       registerObject = registerObject.copyWith(mobileNumber: "");
     } else {
@@ -140,6 +142,7 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void setPassword(String password) {
+    inputPasswordStreamController.add(password);
     if (!_isValidPassword(password)) {
       registerObject = registerObject.copyWith(password: "");
     } else {
@@ -151,10 +154,10 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void setProfilePicture(File picture) {
+    inputProfilePictureStreamController.add(picture);
     if (picture.path.isEmpty) {
       registerObject = registerObject.copyWith(profilePicture: "");
     } else {
-      inputProfilePictureStreamController.add(picture);
       registerObject = registerObject.copyWith(profilePicture: picture.path);
     }
     _validate();
@@ -162,10 +165,10 @@ class RegisterViewModel extends BaseViewModel
 
   @override
   void setUsername(String username) {
+    inputUsernameStreamController.add(username);
     if (!_isValidUsername(username)) {
       registerObject = registerObject.copyWith(username: "");
     } else {
-      inputUsernameStreamController.add(username);
       registerObject = registerObject.copyWith(username: username);
     }
     _validate();
