@@ -7,6 +7,9 @@ class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final String? errorText;
+  final bool readOnly;
+  final Widget? suffixIcon;
+  final void Function()? onTap;
 
   const CustomTextFormField({
     Key? key,
@@ -16,6 +19,9 @@ class CustomTextFormField extends StatelessWidget {
     this.hintText,
     this.labelText,
     this.errorText,
+    this.readOnly = false,
+    this.suffixIcon,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -24,12 +30,14 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
+      onTap: onTap,
       decoration: InputDecoration(
         hintText: hintText,
         labelText: labelText,
         errorText: errorText,
-
+        suffixIcon: suffixIcon,
       ),
+      readOnly: readOnly,
     );
   }
 }

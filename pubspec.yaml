@@ -45,6 +45,8 @@ dependencies:
   device_info: ^2.0.3
   freezed: ^2.3.5
   get_it: ^7.6.0
+  country_code_picker: ^3.0.0
+  image_picker: ^1.0.5
 
 dev_dependencies:
   flutter_test:

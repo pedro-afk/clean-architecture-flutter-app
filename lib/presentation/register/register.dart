@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:complete_advanced_flutter/app/di.dart';
+import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
+import 'package:complete_advanced_flutter/data/service/image_picker.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:complete_advanced_flutter/presentation/register/register_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
@@ -6,6 +10,8 @@ import 'package:complete_advanced_flutter/presentation/resources/strings_manager
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_text_form_field.dart';
+import 'package:complete_advanced_flutter/presentation/resources/widgets/profile_picture_preview.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/assets_manager.dart';
@@ -19,6 +25,7 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final _viewModel = instance<RegisterViewModel>();
+  final _serviceImagePicker = instance<ServiceImagePicker>();
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _ctrlUsername = TextEditingController();
@@ -66,18 +73,20 @@ class _RegisterViewState extends State<RegisterView> {
     return Scaffold(
       appBar: AppBar(
         elevation: AppSize.s0,
+        shadowColor: ColorManager.transparent,
         backgroundColor: ColorManager.transparent,
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(
-            context,
-            _registerBody(),
+                context,
+                _registerBody(),
                 () {
-              _viewModel.register();
-            },
-          ) ?? _registerBody();
+                  _viewModel.register();
+                },
+              ) ??
+              _registerBody();
         },
       ),
     );
@@ -86,98 +95,146 @@ class _RegisterViewState extends State<RegisterView> {
   Widget _registerBody() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(AppPadding.p16),
-      child: Column(
-        children: [
-          const SizedBox(height: AppSize.s28),
-          Image.asset(ImageAssets.splashLogo),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<String?>(
-            stream: _viewModel.outputErrorUsername,
-            builder: (context, snapshot) =>
-                CustomTextFormField(
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Image.asset(ImageAssets.splashLogo),
+            const SizedBox(height: AppSize.s16),
+            StreamBuilder<String?>(
+              stream: _viewModel.outputErrorUsername,
+              builder: (context, snapshot) => CustomTextFormField(
                   controller: _ctrlUsername,
                   hintText: AppStrings.username,
                   labelText: AppStrings.username,
-                  errorText: snapshot.data
-                ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<String?>(
-            stream: _viewModel.outputErrorMobileNumber,
-            builder: (context, snapshot) =>
-                CustomTextFormField(
-                    controller: _ctrlMobileNumber,
-                    hintText: AppStrings.mobileNumber,
-                    labelText: AppStrings.mobileNumber,
-                    errorText: snapshot.data
-                ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<String?>(
-            stream: _viewModel.outputErrorEmail,
-            builder: (context, snapshot) =>
-                CustomTextFormField(
-                    controller: _ctrlEmail,
-                    hintText: AppStrings.email,
-                    labelText: AppStrings.email,
-                    errorText: snapshot.data
-                ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<String?>(
-            stream: _viewModel.outputErrorPassword,
-            builder: (context, snapshot) =>
-                CustomTextFormField(
-                    controller: _ctrlPassword,
-                    hintText: AppStrings.password,
-                    labelText: AppStrings.password,
-                    errorText: snapshot.data
-                ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<String?>(
-            stream: _viewModel.outputErrorPassword,
-            builder: (context, snapshot) =>
-                CustomTextFormField(
-                    controller: _ctrlPassword,
-                    hintText: AppStrings.password,
-                    labelText: AppStrings.password,
-                    errorText: snapshot.data
-                ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          StreamBuilder<bool>(
-            stream: _viewModel.outputIsAllInputsValid,
-            builder: (context, snapshot) =>
-                SizedBox(
-                  width: double.infinity,
-                  height: AppSize.s40,
-                  child: ElevatedButton(
-                    onPressed: (snapshot.data ?? false)
-                        ? () => _viewModel.register()
-                        : null,
-                    child: Text(
-                      AppStrings.register,
-                      style: getMediumStyle(color: ColorManager.white),
-                    ),
+                  errorText: snapshot.data),
+            ),
+            const SizedBox(height: AppSize.s16),
+            Row(
+              children: [
+                Expanded(
+                  flex: AppSize.s1.toInt(),
+                  child: CountryCodePicker(
+                    showCountryOnly: true,
+                    initialSelection: "+55",
+                    showOnlyCountryWhenClosed: true,
+                    onInit: (countryCode) =>
+                        _viewModel.setCountryCode(countryCode?.code ?? empty),
+                    onChanged: (countryCode) =>
+                        _viewModel.setCountryCode(countryCode.code ?? empty),
+                    hideMainText: true,
                   ),
                 ),
-          ),
-          const SizedBox(height: AppSize.s28),
-          Center(
-            child: TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                AppStrings.alreadyRegistered,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+                Expanded(
+                  flex: AppSize.s3.toInt(),
+                  child: StreamBuilder<String?>(
+                    stream: _viewModel.outputErrorMobileNumber,
+                    builder: (context, snapshot) => CustomTextFormField(
+                        controller: _ctrlMobileNumber,
+                        hintText: AppStrings.mobileNumber,
+                        labelText: AppStrings.mobileNumber,
+                        errorText: snapshot.data),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSize.s16),
+            StreamBuilder<String?>(
+              stream: _viewModel.outputErrorEmail,
+              builder: (context, snapshot) => CustomTextFormField(
+                  controller: _ctrlEmail,
+                  hintText: AppStrings.email,
+                  labelText: AppStrings.email,
+                  errorText: snapshot.data),
+            ),
+            const SizedBox(height: AppSize.s16),
+            StreamBuilder<String?>(
+              stream: _viewModel.outputErrorPassword,
+              builder: (context, snapshot) => CustomTextFormField(
+                  controller: _ctrlPassword,
+                  hintText: AppStrings.password,
+                  obscureText: true,
+                  labelText: AppStrings.password,
+                  errorText: snapshot.data),
+            ),
+            const SizedBox(height: AppSize.s16),
+            StreamBuilder<File?>(
+              stream: _viewModel.outputIsValidProfilePicture,
+              builder: (context, snapshot) {
+                return ProfilePicturePreview(
+                  file: snapshot.data,
+                  onTap: _showPicker,
+                );
+              }
+            ),
+            const SizedBox(height: AppSize.s16),
+            StreamBuilder<bool>(
+              stream: _viewModel.outputIsAllInputsValid,
+              builder: (context, snapshot) => SizedBox(
+                width: double.infinity,
+                height: AppSize.s40,
+                child: ElevatedButton(
+                  onPressed: (snapshot.data ?? false)
+                      ? () => _viewModel.register()
+                      : null,
+                  child: Text(
+                    AppStrings.register,
+                    style: getMediumStyle(color: ColorManager.white),
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: AppSize.s16),
+            Center(
+              child: TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(
+                  AppStrings.alreadyRegistered,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _showPicker() {
+    showModalBottomSheet(context: context, builder: (context) {
+      return Wrap(
+        children: [
+          ListTile(
+            trailing: const Icon(Icons.navigate_next),
+            leading: const Icon(Icons.add_photo_alternate_outlined),
+            title: const Text(AppStrings.photoGallery),
+            onTap: _openGallery,
+          ),
+          const Divider(),
+          ListTile(
+            trailing: const Icon(Icons.navigate_next),
+            leading: const Icon(Icons.add_a_photo_outlined),
+            title: const Text(AppStrings.takePicture),
+            onTap: _openCamera,
+          ),
+        ],
+      );
+    });
+  }
+
+  Future<void> _openGallery() async {
+    File? image = await _serviceImagePicker.pickImageFromGallery;
+    if (image != null) {
+      _viewModel.setProfilePicture(image);
+      if (mounted) Navigator.pop(context);
+    }
+  }
+
+  Future<void> _openCamera() async {
+    File? image = await _serviceImagePicker.pickImageFromCamera;
+    if (image != null) {
+      _viewModel.setProfilePicture(image);
+      if (mounted) Navigator.pop(context);
+    }
   }
 }
