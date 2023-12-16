@@ -13,6 +13,7 @@ import 'package:complete_advanced_flutter/domain/usecase/register_usecase.dart';
 import 'package:complete_advanced_flutter/presentation/forgot_password/forgot_password_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/login/login_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/main/home/home_viewmodel.dart';
+import 'package:complete_advanced_flutter/presentation/main/main_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/onboarding/onboarding_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/register/register_viewmodel.dart';
 import 'package:get_it/get_it.dart';
@@ -81,6 +82,12 @@ void initRegisterModule() {
         ImagePicker(),
       ),
     );
+  }
+}
+
+void initMainModule() {
+  if (!GetIt.I.isRegistered<MainViewModel>()) {
+    instance.registerFactory<MainViewModel>(() => MainViewModel());
   }
 }
 
