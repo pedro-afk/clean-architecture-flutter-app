@@ -48,9 +48,7 @@ abstract class BaseData {
   String title;
   String image;
 
-  BaseData(this.id,
-      this.title,
-      this.image);
+  BaseData(this.id, this.title, this.image);
 }
 
 class Service extends BaseData {
@@ -77,4 +75,22 @@ class HomeObject {
   HomeData data;
 
   HomeObject(this.data);
+}
+
+class StoreDetail {
+  int? id;
+  String? title;
+  String? image;
+  String? details;
+  String? services;
+  String? about;
+
+  StoreDetail(
+    this.id,
+    this.title,
+    this.image,
+    this.details,
+    this.services,
+    this.about,
+  );
 }

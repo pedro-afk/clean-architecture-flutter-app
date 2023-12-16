@@ -45,40 +45,51 @@ extension SupportForgotPasswordResponseMapper on SupportForgotPasswordResponse {
 
 extension ServicesResponseMapper on ServiceResponse {
   Service toDomain() {
-    return Service(
-      id.orZero(),
-      title.orEmpty(),
-      image.orEmpty()
-    );
+    return Service(id.orZero(), title.orEmpty(), image.orEmpty());
   }
 }
 
 extension StoresResponseMapper on StoreResponse {
   Store toDomain() {
-    return Store(
-        id.orZero(),
-        title.orEmpty(),
-        image.orEmpty()
-    );
+    return Store(id.orZero(), title.orEmpty(), image.orEmpty());
   }
 }
 
 extension BannersResponseMapper on BannerResponse {
   BannerAd toDomain() {
-    return BannerAd(
-        id.orZero(),
-        title.orEmpty(),
-        image.orEmpty()
-    );
+    return BannerAd(id.orZero(), title.orEmpty(), image.orEmpty());
   }
 }
 
 extension HomeResponseMapper on HomeResponse? {
   HomeObject toDomain() {
-    List<Service> mappedServices = (this?.data?.services.map((e) => e.toDomain()) ?? const Iterable.empty()).cast<Service>().toList();
-    List<Store> mappedStores = (this?.data?.stores.map((e) => e.toDomain()) ?? const Iterable.empty()).cast<Store>().toList();
-    List<BannerAd> mappedBanners = (this?.data?.banners.map((e) => e.toDomain()) ?? const Iterable.empty()).cast<BannerAd>().toList();
+    List<Service> mappedServices =
+        (this?.data?.services.map((e) => e.toDomain()) ??
+                const Iterable.empty())
+            .cast<Service>()
+            .toList();
+    List<Store> mappedStores =
+        (this?.data?.stores.map((e) => e.toDomain()) ?? const Iterable.empty())
+            .cast<Store>()
+            .toList();
+    List<BannerAd> mappedBanners =
+        (this?.data?.banners.map((e) => e.toDomain()) ?? const Iterable.empty())
+            .cast<BannerAd>()
+            .toList();
     var data = HomeData(mappedServices, mappedStores, mappedBanners);
     return HomeObject(data);
+  }
+}
+
+extension StoreDetailResponseMapper on StoreDetailResponse {
+  StoreDetail toDomain() {
+    return StoreDetail(
+      id,
+      title,
+      image,
+      details,
+      services,
+      about,
+    );
   }
 }
