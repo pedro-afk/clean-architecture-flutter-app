@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
-    useMaterial3: true,
+    useMaterial3: false,
     // main colors of the app
     primaryColorLight: ColorManager.primaryOpacity70,
     primaryColorDark: ColorManager.darkPrimary,

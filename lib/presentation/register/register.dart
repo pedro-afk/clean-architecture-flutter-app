@@ -124,7 +124,7 @@ class _RegisterViewState extends State<RegisterView> {
             Row(
               children: [
                 Expanded(
-                  flex: AppSize.s1.toInt(),
+                  flex: AppSize.si1,
                   child: CountryCodePicker(
                     showCountryOnly: true,
                     initialSelection: "+55",
@@ -137,7 +137,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 Expanded(
-                  flex: AppSize.s3.toInt(),
+                  flex: AppSize.si3,
                   child: StreamBuilder<String?>(
                     stream: _viewModel.outputErrorMobileNumber,
                     builder: (context, snapshot) => CustomTextFormField(

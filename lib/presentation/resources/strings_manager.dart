@@ -33,7 +33,13 @@ class AppStrings {
   static const String resendPassword = "Didn't receive an e-mail? Resend";
   static const String goBack = "Go back";
   static const String alreadyRegistered = "Already have an account?";
-
   static const String photoGallery = "Image from gallery";
   static const String takePicture = "Take a picture";
+
+  static const String home = "Home";
+  static const String notifications = "Notifications";
+  static const String search = "Search";
+  static const String settings = "Settings";
+  static const String services = "Services";
+  static const String stores = "Stores";
 }

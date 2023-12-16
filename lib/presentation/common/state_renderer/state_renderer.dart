@@ -58,6 +58,7 @@ class StateRenderer extends StatelessWidget {
         return const ItemsInColumn(
           children: [
             Center(child: CircularProgressIndicator()),
+            SizedBox(height: AppSize.s8),
             Center(child: Message(message: AppStrings.loading)),
           ],
         );
