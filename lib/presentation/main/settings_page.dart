@@ -11,6 +11,32 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text(AppStrings.settings));
+    return Column(
+      children: [
+        ListTile(
+          leading: const Icon(Icons.language),
+          title: const Text(AppStrings.changeLanguage),
+          trailing: const Icon(Icons.navigate_next),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.support),
+          title: const Text(AppStrings.contactUs),
+          trailing: const Icon(Icons.navigate_next),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.share_outlined),
+          title: const Text(AppStrings.invite),
+          trailing: const Icon(Icons.navigate_next),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: const Icon(Icons.logout),
+          title: const Text(AppStrings.logout),
+          onTap: () {},
+        ),
+      ],
+    );
   }
 }
