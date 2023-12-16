@@ -15,6 +15,7 @@ class RegisterViewModel extends BaseViewModel
   final _passwordStreamController = StreamController<String>.broadcast();
   final _profilePictureStreamController = StreamController<File>.broadcast();
   final _isAllInputsValidStreamController = StreamController<bool?>.broadcast();
+  final isUserRegisteredInSuccessfullyStreamController = StreamController<bool>();
 
   final RegisterUseCase _registerUseCase;
   var registerObject = RegisterObject("", "", "", "", "", "");
@@ -34,6 +35,7 @@ class RegisterViewModel extends BaseViewModel
     _passwordStreamController.close();
     _profilePictureStreamController.close();
     _isAllInputsValidStreamController.close();
+    isUserRegisteredInSuccessfullyStreamController.close();
     super.dispose();
   }
 
@@ -52,6 +54,7 @@ class RegisterViewModel extends BaseViewModel
       inputState.add(ErrorState(StateRendererType.popupErrorState, failure.message));
     }, (data) {
       inputState.add(ContentState());
+      isUserRegisteredInSuccessfullyStreamController.add(true);
     });
   }
 

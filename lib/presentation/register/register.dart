@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:complete_advanced_flutter/app/app_prefs.dart';
 import 'package:complete_advanced_flutter/app/di.dart';
 import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/data/service/image_picker.dart';
 import 'package:complete_advanced_flutter/presentation/common/state_renderer/state_renderer_impl.dart';
 import 'package:complete_advanced_flutter/presentation/register/register_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
+import 'package:complete_advanced_flutter/presentation/resources/routes_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
@@ -13,6 +15,7 @@ import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_
 import 'package:complete_advanced_flutter/presentation/resources/widgets/profile_picture_preview.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../resources/assets_manager.dart';
 
@@ -25,6 +28,7 @@ class RegisterView extends StatefulWidget {
 
 class _RegisterViewState extends State<RegisterView> {
   final _viewModel = instance<RegisterViewModel>();
+  final _appPreferences = instance<AppPreferences>();
   final _serviceImagePicker = instance<ServiceImagePicker>();
   final _formKey = GlobalKey<FormState>();
 
@@ -53,6 +57,13 @@ class _RegisterViewState extends State<RegisterView> {
     });
     _ctrlUsername.addListener(() {
       _viewModel.setUsername(_ctrlUsername.text);
+    });
+
+    _viewModel.isUserRegisteredInSuccessfullyStreamController.stream.listen((isRegistered) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _appPreferences.setIsUserLoggedIn();
+        Navigator.pushReplacementNamed(context, Routes.mainRoute);
+      });
     });
   }
 
