@@ -3,6 +3,7 @@ import 'package:complete_advanced_flutter/data/mapper/mapper.dart';
 import 'package:complete_advanced_flutter/presentation/main/main_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MainView extends StatefulWidget {
@@ -46,22 +47,22 @@ class _MainViewState extends State<MainView> {
             unselectedItemColor: ColorManager.lightGrey,
             onTap: (value) => _viewModel.setIndex(value),
             useLegacyColorScheme: false,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: AppStrings.home,
+                icon: const Icon(Icons.home),
+                label: AppStrings.home.tr(),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: AppStrings.search,
+                icon: const Icon(Icons.search),
+                label: AppStrings.search.tr(),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.notifications),
-                label: AppStrings.notifications,
+                icon: const Icon(Icons.notifications),
+                label: AppStrings.notifications.tr(),
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: AppStrings.settings,
+                icon: const Icon(Icons.settings),
+                label: AppStrings.settings.tr(),
               ),
             ],
           ),

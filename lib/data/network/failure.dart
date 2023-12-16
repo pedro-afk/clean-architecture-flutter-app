@@ -9,5 +9,5 @@ class Failure {
 
 // TODO: create a factory for this
 class DefaultFailure extends Failure {
-  DefaultFailure() : super(ResponseCode.unknown, ResponseMessage.unknown);
+  DefaultFailure() : super(ResponseCode.unknown, ResponseMessage.defaultError);
 }

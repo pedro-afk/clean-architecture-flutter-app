@@ -9,6 +9,7 @@ import 'package:complete_advanced_flutter/presentation/resources/strings_manager
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_text_form_field.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -90,10 +91,10 @@ class _LoginViewState extends State<LoginView> {
               builder: (context, snapshot) => CustomTextFormField(
                 controller: _usernameController,
                 keyboardType: TextInputType.emailAddress,
-                hintText: AppStrings.username,
-                labelText: AppStrings.username,
+                hintText: AppStrings.username.tr(),
+                labelText: AppStrings.username.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.usernameError,
+                    (snapshot.data ?? true) ? null : AppStrings.usernameError.tr(),
               ),
             ),
             const SizedBox(height: AppSize.s28),
@@ -103,10 +104,10 @@ class _LoginViewState extends State<LoginView> {
                 controller: _passwordController,
                 keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
-                hintText: AppStrings.password,
-                labelText: AppStrings.password,
+                hintText: AppStrings.password.tr(),
+                labelText: AppStrings.password.tr(),
                 errorText:
-                    (snapshot.data ?? true) ? null : AppStrings.passwordError,
+                    (snapshot.data ?? true) ? null : AppStrings.passwordError.tr(),
               ),
             ),
             const SizedBox(height: AppSize.s28),
@@ -120,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
                       ? () => _viewModel.login()
                       : null,
                   child: Text(
-                    AppStrings.login,
+                    AppStrings.login.tr(),
                     style: getMediumStyle(color: ColorManager.white),
                   ),
                 ),
@@ -134,16 +135,18 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () => Navigator.pushNamed(
                       context, Routes.forgotPasswordRoute),
                   child: Text(
-                    AppStrings.forgetPassword,
+                    AppStrings.forgetPassword.tr(),
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-                TextButton(
-                  onPressed: () =>
-                      Navigator.pushNamed(context, Routes.registerRoute),
-                  child: Text(
-                    AppStrings.registerText,
-                    style: Theme.of(context).textTheme.titleMedium,
+                Flexible(
+                  child: TextButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, Routes.registerRoute),
+                    child: Text(
+                      AppStrings.registerText.tr(),
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 )
               ],

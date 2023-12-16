@@ -5,8 +5,10 @@ import 'package:complete_advanced_flutter/presentation/common/state_renderer/sta
 import 'package:complete_advanced_flutter/presentation/main/home/home_viewmodel.dart';
 import 'package:complete_advanced_flutter/presentation/resources/color_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/routes_manager.dart';
+import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // TODO: refactor this widget
@@ -88,7 +90,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: AppSize.s16),
               Text(
-                "Services",
+                AppStrings.services.tr(),
                 style: getBoldStyle(color: ColorManager.primary),
               ),
               SizedBox(
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: AppSize.s16),
               Text(
-                "Stores",
+                AppStrings.stores.tr(),
                 style: getBoldStyle(color: ColorManager.primary),
               ),
               Flex(

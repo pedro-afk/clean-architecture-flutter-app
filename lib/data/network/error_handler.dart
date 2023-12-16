@@ -1,5 +1,8 @@
 import 'package:complete_advanced_flutter/data/network/failure.dart';
+import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 enum DataSource {
   success,
   noContent,
@@ -65,31 +68,39 @@ extension DataSourceExtension on DataSource {
   Failure getFailure() {
     switch (this) {
       case DataSource.badRequest:
-        return Failure(ResponseCode.badRequest, ResponseMessage.badRequest);
+        return Failure(
+            ResponseCode.badRequest, ResponseMessage.badRequest.tr());
       case DataSource.forbidden:
-        return Failure(ResponseCode.forbidden, ResponseMessage.forbidden);
+        return Failure(ResponseCode.forbidden, ResponseMessage.forbidden.tr());
       case DataSource.unauthorized:
-        return Failure(ResponseCode.unauthorized, ResponseMessage.unauthorized);
+        return Failure(
+            ResponseCode.unauthorized, ResponseMessage.unauthorized.tr());
       case DataSource.notFound:
-        return Failure(ResponseCode.notFound, ResponseMessage.notFound);
+        return Failure(ResponseCode.notFound, ResponseMessage.notFound.tr());
       case DataSource.internalServerError:
-        return Failure(ResponseCode.internalServerError, ResponseMessage.internalServerError);
+        return Failure(ResponseCode.internalServerError,
+            ResponseMessage.internalServerError.tr());
       case DataSource.connectionTimeout:
-        return Failure(ResponseCode.connectTimeout, ResponseMessage.connectTimeout);
+        return Failure(
+            ResponseCode.connectTimeout, ResponseMessage.connectTimeout.tr());
       case DataSource.cancel:
-        return Failure(ResponseCode.cancel, ResponseMessage.cancel);
+        return Failure(ResponseCode.cancel, ResponseMessage.cancel.tr());
       case DataSource.receiveTimeout:
-        return Failure(ResponseCode.receiveTimeout, ResponseMessage.receiveTimeout);
+        return Failure(
+            ResponseCode.receiveTimeout, ResponseMessage.receiveTimeout.tr());
       case DataSource.sendTimeout:
-        return Failure(ResponseCode.sendTimeout, ResponseMessage.sendTimeout);
+        return Failure(
+            ResponseCode.sendTimeout, ResponseMessage.sendTimeout.tr());
       case DataSource.cacheError:
-        return Failure(ResponseCode.cacheError, ResponseMessage.cacheError);
+        return Failure(
+            ResponseCode.cacheError, ResponseMessage.cacheError.tr());
       case DataSource.noInternetConnection:
-        return Failure(ResponseCode.noInternetConnection, ResponseMessage.noInternetConnection);
+        return Failure(ResponseCode.noInternetConnection,
+            ResponseMessage.noInternetConnection.tr());
       case DataSource.unknown:
-        return Failure(ResponseCode.unknown, ResponseMessage.unknown);
+        return Failure(ResponseCode.unknown, ResponseMessage.defaultError.tr());
       default:
-        return Failure(ResponseCode.unknown, ResponseMessage.unknown);
+        return Failure(ResponseCode.unknown, ResponseMessage.defaultError.tr());
     }
   }
 }
@@ -113,21 +124,22 @@ class ResponseCode {
 }
 
 class ResponseMessage {
-  static const String success = "Success";
-  static const String noContent = "Success with no content";
-  static const String badRequest = "Bad request, try again later";
-  static const String forbidden = "Forbidden request, try again later";
-  static const String unauthorized = "User is unauthorized, try again later";
-  static const String notFound = "Url is not found, try again later";
-  static const String internalServerError = "Some thing went wrong, try again later";
+  static const String success = AppStrings.success;
+  static const String noContent = AppStrings.noContent;
+  static const String badRequest = AppStrings.badRequestError;
+  static const String forbidden = AppStrings.forbiddenError;
+  static const String unauthorized = AppStrings.unauthorizedError;
+  static const String notFound = AppStrings.notFoundError;
+  static const String internalServerError = AppStrings.internalServerError;
 
-  static const String unknown = "Some thing went wrong, try again later";
-  static const String connectTimeout = "Time out error, try again later";
-  static const String cancel = "Request was cancelled, try again later";
-  static const String receiveTimeout = "Some thing went wrong, try again later";
-  static const String sendTimeout = "Time out error, try again later";
-  static const String cacheError = "Cache error, try again later";
-  static const String noInternetConnection = "Please check your internet connection";
+  // local responses codes
+  static const String defaultError = AppStrings.defaultError;
+  static const String connectTimeout = AppStrings.timeoutError;
+  static const String cancel = AppStrings.defaultError;
+  static const String receiveTimeout = AppStrings.timeoutError;
+  static const String sendTimeout = AppStrings.timeoutError;
+  static const String cacheError = AppStrings.defaultError;
+  static const String noInternetConnection = AppStrings.noInternetError;
 }
 
 class ApiInternalStatus {

@@ -14,6 +14,7 @@ import 'package:complete_advanced_flutter/presentation/resources/values_manager.
 import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_text_form_field.dart';
 import 'package:complete_advanced_flutter/presentation/resources/widgets/profile_picture_preview.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -116,8 +117,8 @@ class _RegisterViewState extends State<RegisterView> {
               stream: _viewModel.outputErrorUsername,
               builder: (context, snapshot) => CustomTextFormField(
                   controller: _ctrlUsername,
-                  hintText: AppStrings.username,
-                  labelText: AppStrings.username,
+                  hintText: AppStrings.username.tr(),
+                  labelText: AppStrings.username.tr(),
                   errorText: snapshot.data),
             ),
             const SizedBox(height: AppSize.s16),
@@ -142,8 +143,8 @@ class _RegisterViewState extends State<RegisterView> {
                     stream: _viewModel.outputErrorMobileNumber,
                     builder: (context, snapshot) => CustomTextFormField(
                         controller: _ctrlMobileNumber,
-                        hintText: AppStrings.mobileNumber,
-                        labelText: AppStrings.mobileNumber,
+                        hintText: AppStrings.mobileNumber.tr(),
+                        labelText: AppStrings.mobileNumber.tr(),
                         errorText: snapshot.data),
                   ),
                 ),
@@ -154,8 +155,8 @@ class _RegisterViewState extends State<RegisterView> {
               stream: _viewModel.outputErrorEmail,
               builder: (context, snapshot) => CustomTextFormField(
                   controller: _ctrlEmail,
-                  hintText: AppStrings.email,
-                  labelText: AppStrings.email,
+                  hintText: AppStrings.emailHint.tr(),
+                  labelText: AppStrings.emailHint.tr(),
                   errorText: snapshot.data),
             ),
             const SizedBox(height: AppSize.s16),
@@ -163,9 +164,9 @@ class _RegisterViewState extends State<RegisterView> {
               stream: _viewModel.outputErrorPassword,
               builder: (context, snapshot) => CustomTextFormField(
                   controller: _ctrlPassword,
-                  hintText: AppStrings.password,
+                  hintText: AppStrings.password.tr(),
                   obscureText: true,
-                  labelText: AppStrings.password,
+                  labelText: AppStrings.password.tr(),
                   errorText: snapshot.data),
             ),
             const SizedBox(height: AppSize.s16),
@@ -189,7 +190,7 @@ class _RegisterViewState extends State<RegisterView> {
                       ? () => _viewModel.register()
                       : null,
                   child: Text(
-                    AppStrings.register,
+                    AppStrings.register.tr(),
                     style: getMediumStyle(color: ColorManager.white),
                   ),
                 ),
@@ -200,7 +201,7 @@ class _RegisterViewState extends State<RegisterView> {
               child: TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Text(
-                  AppStrings.alreadyRegistered,
+                  AppStrings.haveAccount.tr(),
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ),
@@ -218,14 +219,14 @@ class _RegisterViewState extends State<RegisterView> {
           ListTile(
             trailing: const Icon(Icons.navigate_next),
             leading: const Icon(Icons.add_photo_alternate_outlined),
-            title: const Text(AppStrings.photoGallery),
+            title: Text(AppStrings.photoGalley.tr()),
             onTap: _openGallery,
           ),
           const Divider(),
           ListTile(
             trailing: const Icon(Icons.navigate_next),
             leading: const Icon(Icons.add_a_photo_outlined),
-            title: const Text(AppStrings.takePicture),
+            title: Text(AppStrings.photoCamera.tr()),
             onTap: _openCamera,
           ),
         ],

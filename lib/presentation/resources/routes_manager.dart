@@ -54,7 +54,7 @@ class RouteGenerator {
         appBar: AppBar(
           title: const Text(AppStrings.noRouteFound),
         ),
-        body: const Text(AppStrings.contactSupport),
+        body: const Text(AppStrings.contactUs),
       ),
     );
   }

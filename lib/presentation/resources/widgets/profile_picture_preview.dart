@@ -5,6 +5,7 @@ import 'package:complete_advanced_flutter/presentation/resources/color_manager.d
 import 'package:complete_advanced_flutter/presentation/resources/strings_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePicturePreview extends StatelessWidget {
@@ -80,7 +81,7 @@ class ProfilePicturePreview extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(AppStrings.profilePicture,
+                  Text(AppStrings.profilePicture.tr(),
                       style: getMediumStyle(color: ColorManager.lightGrey)),
                   Icon(Icons.camera_alt_outlined,
                       color: ColorManager.lightGrey),
@@ -91,7 +92,7 @@ class ProfilePicturePreview extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                "Image preview",
+                AppStrings.imagePreview.tr(),
                 style: getMediumStyle(color: ColorManager.lightGrey),
               ),
             ),

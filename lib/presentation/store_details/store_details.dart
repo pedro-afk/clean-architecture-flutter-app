@@ -8,6 +8,7 @@ import 'package:complete_advanced_flutter/presentation/resources/strings_manager
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/presentation/store_details/store_details_viewmodel.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // TODO: refactor this widget
@@ -39,7 +40,8 @@ class _StoreDetailsState extends State<StoreDetailsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.storeDetails),
+        iconTheme: IconThemeData(color: ColorManager.white),
+        title: Text(AppStrings.storeDetails.tr()),
       ),
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
@@ -73,7 +75,7 @@ class _StoreDetailsState extends State<StoreDetailsView> {
                 ),
                 const SizedBox(height: AppSize.s28),
                 Text(
-                  AppStrings.details,
+                  AppStrings.details.tr(),
                   style: getBoldStyle(
                     color: ColorManager.primary,
                     fontSize: FontSize.s18,
@@ -82,7 +84,7 @@ class _StoreDetailsState extends State<StoreDetailsView> {
                 Text(detail.details ?? empty),
                 const SizedBox(height: AppSize.s16),
                 Text(
-                  AppStrings.services,
+                  AppStrings.services.tr(),
                   style: getBoldStyle(
                     color: ColorManager.primary,
                     fontSize: FontSize.s18,
@@ -91,7 +93,7 @@ class _StoreDetailsState extends State<StoreDetailsView> {
                 Text(detail.services ?? empty),
                 const SizedBox(height: AppSize.s16),
                 Text(
-                  AppStrings.about,
+                  AppStrings.about.tr(),
                   style: getBoldStyle(
                     color: ColorManager.primary,
                     fontSize: FontSize.s18,
@@ -103,8 +105,8 @@ class _StoreDetailsState extends State<StoreDetailsView> {
             ),
           );
         }
-        return const Center(
-          child: Text(AppStrings.noDetails),
+        return Center(
+          child: Text(AppStrings.noDetails.tr()),
         );
       },
     );

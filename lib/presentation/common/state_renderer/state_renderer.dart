@@ -5,6 +5,7 @@ import 'package:complete_advanced_flutter/presentation/resources/strings_manager
 import 'package:complete_advanced_flutter/presentation/resources/styles_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/values_manager.dart';
 import 'package:complete_advanced_flutter/presentation/resources/widgets/custom_dialog.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 enum StateRendererType {
@@ -35,7 +36,7 @@ class StateRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.popupLoadingState:
-        return const CustomDialog(
+        return CustomDialog(
           content: SizedBox(
             height: AppSize.s50,
             child: Wrap(
@@ -43,8 +44,8 @@ class StateRenderer extends StatelessWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               alignment: WrapAlignment.center,
               children: [
-                CircularProgressIndicator(),
-                Message(message: AppStrings.loading),
+                const CircularProgressIndicator(),
+                Message(message: AppStrings.loading.tr()),
               ],
             ),
           ),
@@ -52,29 +53,29 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.popupErrorState:
         return CustomDialog(
           content: Message(message: message),
-          actions: [RetryButton(title: AppStrings.ok, onRetry: onRetry)],
+          actions: [RetryButton(title: AppStrings.ok.tr(), onRetry: onRetry)],
         );
       case StateRendererType.fullscreenLoadingState:
-        return const ItemsInColumn(
+        return ItemsInColumn(
           children: [
-            Center(child: CircularProgressIndicator()),
-            SizedBox(height: AppSize.s8),
-            Center(child: Message(message: AppStrings.loading)),
+            const Center(child: CircularProgressIndicator()),
+            const SizedBox(height: AppSize.s8),
+            Center(child: Message(message: AppStrings.loading.tr())),
           ],
         );
       case StateRendererType.fullscreenErrorState:
         return ItemsInColumn(
           children: [
-            Center(child: Message(message: message)),
-            Center(child: RetryButton(title: AppStrings.retryAgain, onRetry: onRetry))
+            Center(child: Message(message: message.tr())),
+            Center(child: RetryButton(title: AppStrings.retryAgain.tr(), onRetry: onRetry))
           ],
         );
       case StateRendererType.emptyScreenState:
-        return ItemsInColumn(children: [Message(message: message)]);
+        return ItemsInColumn(children: [Message(message: message.tr())]);
       case StateRendererType.popupAlertState:
         return CustomDialog(
-          content: Message(message: message),
-          actions: [RetryButton(title: AppStrings.ok, onRetry: onRetry)],
+          content: Message(message: message.tr()),
+          actions: [RetryButton(title: AppStrings.ok.tr(), onRetry: onRetry)],
         );
       default:
         return const SizedBox();

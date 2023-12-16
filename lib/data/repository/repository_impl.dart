@@ -27,7 +27,7 @@ class RepositoryImpl extends Repository {
         } else {
           return Left(
             Failure(response.status ?? ApiInternalStatus.failure,
-                response.message ?? ResponseMessage.unknown),
+                response.message ?? ResponseMessage.defaultError),
           );
         }
       } catch (error) {
@@ -49,7 +49,7 @@ class RepositoryImpl extends Repository {
         } else {
           return Left(
             Failure(response.status ?? ApiInternalStatus.failure,
-                response.message ?? ResponseMessage.unknown),
+                response.message ?? ResponseMessage.defaultError),
           );
         }
       } catch (error) {
@@ -70,7 +70,7 @@ class RepositoryImpl extends Repository {
         } else {
           return Left(
             Failure(response.status ?? ApiInternalStatus.failure,
-                response.message ?? ResponseMessage.unknown),
+                response.message ?? ResponseMessage.defaultError),
           );
         }
       } catch (error) {
@@ -96,7 +96,7 @@ class RepositoryImpl extends Repository {
           } else {
             return Left(
               Failure(response.status ?? ApiInternalStatus.failure,
-                  response.message ?? ResponseMessage.unknown),
+                  response.message ?? ResponseMessage.defaultError),
             );
           }
         } catch (error) {
@@ -123,7 +123,7 @@ class RepositoryImpl extends Repository {
           } else {
             return Left(
               Failure(response.status ?? ApiInternalStatus.failure,
-                  response.message ?? ResponseMessage.unknown),
+                  response.message ?? ResponseMessage.defaultError),
             );
           }
         } catch (error) {

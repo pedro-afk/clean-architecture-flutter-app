@@ -13,7 +13,7 @@
   "username_hint": "UserName",
   "password_hint": "Password",
   "login_button": "Login",
-  "forgot_password_text": "Forgot Password",
+  "forgot_password_text": "Forgot password?",
   "register_text": "Not a member ? Sign up",
   "loading": "Loading....",
   "retry_again": "Retry again",
@@ -24,7 +24,7 @@
   "invalid_email": "Invalid Email",
   "register": "Register",
   "already_have_account": "Already have an account? login",
-  "upload_profile_pictuSearchre": "profile picture",
+  "upload_profile_picture": "profile picture",
   "photo_gallery": "Photo from gallery",
   "camera": "Photo from camera",
   "mobile_number_hint": "Mobile Number",
@@ -55,5 +55,8 @@
   "contact_us": "Contact Us",
   "invite_your_friends": "Invite Your Friends",
   "logout": "Logout",
-  "reset_password": "Reset Password"
+  "reset_password": "Reset Password",
+  "didnt_receive_email": "Didn't receive an e-mail? Resend",
+  "no_details": "No details",
+  "image_preview": "Image preview"
 }
